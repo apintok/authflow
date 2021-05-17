@@ -1,0 +1,14 @@
+.container__steps {
+	display: grid;
+	grid-template-columns: auto auto;
+	border: 1px solid black;
+	padding: 0.5rem;
+}
+
+.container__form {
+	border: 1px solid black;
+}
+
+.container__token {
+	border: 1px solid black;
+}

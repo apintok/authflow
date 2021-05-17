@@ -1,0 +1,25 @@
+{
+	"name": "authflow",
+	"version": "1.0.0",
+	"description": "App for testing oAuth 2.0 Flow",
+	"main": "app.js",
+	"scripts": {
+		"dev": "nodemon app.js"
+	},
+	"keywords": [
+		"oauth2.0",
+		"nodejs",
+		"restlets"
+	],
+	"author": "apintok",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.21.1",
+		"dotenv": "^9.0.0",
+		"ejs": "^3.1.6",
+		"express": "^4.17.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	}
+}
