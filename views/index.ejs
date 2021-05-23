@@ -10,39 +10,41 @@
 		<title>oAuth 2.0 Flow</title>
 	</head>
 	<body>
-		<h2>oAuth 2.0 Flow App</h2>
-		<p>Use this app to test and understand the oAuth 2.0 flow.</p>
-		<ul>
-			<li>This App was tested with NetSuite ERP;</li>
-			<li>On the Client Details provider, set the Redirect URI to <b>https://locahost:8080/v1/oauth2</b>;</li>
-			<li>It's mandatory to use https!</li>
-			<li>The intent of this app is to be used locally;</li>
-			<li>To use the https module is necessary to have a OpenSSL key and certificate;</li>
-			<li>Set your own app config variables;</li>
-			<li>Please refer to the docs in <a href="#">Github</a> repo;</li>
-			<li>There are 2 steps that are necessary to get the token. See below:</li>
-		</ul>
+		<header>
+			<h2>oAuth 2.0 Flow App</h2>
+			<p>Use this app to test and understand the oAuth 2.0 flow.</p>
+			<ul>
+				<li>This App was tested with NetSuite ERP;</li>
+				<li>On the Client Details provider, set the Redirect URI to <b>https://locahost:8080/</b>;</li>
+				<li>It's mandatory to use https!</li>
+				<li>The intent of this app is to be used locally;</li>
+				<li>To use the https module is necessary to have a OpenSSL key and certificate;</li>
+				<li>Set your own app config variables;</li>
+				<li>It's necessary to be logged in NetSuite ERP;</li>
+				<li>Please refer to the docs in <a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;</li>
+			</ul>
+		</header>
 
 		<section class="container__steps">
 			<div class="container__form">
 				<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
 
 				<form action="/v1/oauth2" method="get">
-					<label for="clientid">Client ID:</label><br />
-					<input type="text" id="clientid" name="clientid" /><br />
-					<label for="state">State:</label><br />
-					<input type="text" id="state" name="state" /><br />
-					<label for="redirect_uri">Redirect URI:</label><br />
-					<input type="text" id="redirect_uri" name="redirect_uri" />
+					<div class="input--group__params">
+						<input type="text" id="clientid" name="clientid" placeholder="Client ID" /><br />
+						<input type="text" id="state" name="state" placeholder="State" /><br />
+						<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" /><br />
+					</div>
+					<div class="input--group__scope">
+						<span>Scope</span><br />
+						<input type="checkbox" id="restlet" name="scope" value="restlets" checked />
+						<label for="restlets"> Restlets</label><br />
+						<input type="checkbox" id="rest_webservices" name="scope" value="rest_webservices" />
+						<label for="rest_webservices"> Rest Web Services</label><br />
+						<span class="warning">Warning - Please Select 1 or 2 Scopes.</span>
+					</div>
 
-					<p>Scope:</p>
-
-					<input type="checkbox" id="restlet" name="scope" value="restlets" />
-					<label for="restlets"> Restlets</label><br />
-					<input type="checkbox" id="rest_webservices" name="scope" value="rest_webservices" />
-					<label for="rest_webservices"> Rest Web Services</label><br />
-
-					<input type="submit" value="Authorize" />
+					<input class="btn" id="authorize" type="submit" value="Authorize" />
 				</form>
 			</div>
 
@@ -50,19 +52,21 @@
 				<h4>Step 2 - POST Request to the Token Endpoint.</h4>
 
 				<form action="/v1/oauth2" method="post">
-					<label for="code">Code:</label><br />
-					<input type="text" id="code" name="code" value="<%= code.code %>" /><br />
-					<label for="redirect_uri">Redirect URI:</label><br />
-					<input type="text" id="redirect_uri" name="redirect_uri" /><br />
+					<div class="input--group__params">
+						<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" /><br />
+						<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" /><br />
+					</div>
 
-					<p>Grant Type:</p>
+					<div class="input--group__scope">
+						<span>Grant Type</span><br />
 
-					<input type="checkbox" id="authorization_code" name="grant_type" value="authorization_code" checked />
-					<label for="authorization_code"> Authorization Code</label><br />
-					<input type="checkbox" id="refresh_token" name="grant_type" value="refresh_token" />
-					<label for="refresh_token"> Refresh Token</label><br />
+						<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" checked />
+						<label for="authorization_code"> Authorization Code</label><br />
+						<input type="radio" id="refresh_token" name="grant_type" value="refresh_token" />
+						<label for="refresh_token"> Refresh Token</label><br />
+					</div>
 
-					<input type="submit" value="Get Token" />
+					<input class="btn" type="submit" value="Get Token" />
 				</form>
 			</div>
 		</section>

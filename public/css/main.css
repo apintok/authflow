@@ -1,14 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600);
+
+:root {
+	--color-main: #002c8f;
+	--color-primary: #f9f9f9;
+	--color-secondary: #ccc;
+	--color-white: #fff;
+	--color-black: #000;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+header h2,
+p {
+	margin: 0 auto;
+}
+
 .container__steps {
 	display: grid;
 	grid-template-columns: auto auto;
-	border: 1px solid black;
+	grid-gap: 0.5rem;
+	border: 1px solid var(--color-main);
 	padding: 0.5rem;
 }
 
 .container__form {
-	border: 1px solid black;
+	border: 1px solid var(--color-main);
+	background-color: var(--color-primary);
+	padding: 0.5rem;
+}
+
+.container__form h4 {
+	margin: 0;
+}
+
+.input--group__params {
+	border: none;
+	/* border: 1px solid var(--color-main); */
+	/* padding: 0 0.5rem; */
+}
+
+.input--group__params input {
+	border-color: var(--color-secondary);
+	border-radius: 1px;
+	margin: 0.5rem auto;
+	padding: 0.5rem;
+	width: 100%;
+}
+
+.input--group__params input:focus {
+	outline: 0;
+	border-color: var(--color-main);
+}
+
+.input--group__scope {
+	/* border: 1px solid var(--color-main); */
+	margin-bottom: 0.5rem;
 }
 
 .container__token {
-	border: 1px solid black;
+	border: 1px solid var(--color-black);
+	margin-top: 0.5rem;
+}
+
+.btn {
+	color: var(--color-white);
+	border: none;
+	background-color: var(--color-main);
+	padding: 0.5rem;
+	/* margin: 0.5rem 0.5rem; */
+}
+
+/* Special Classes */
+
+.warning {
+	display: none;
+	color: red;
 }

@@ -58,7 +58,7 @@ app.post('/v1/oauth2', async (req, res) => {
 	try {
 		const body = {
 			code: req.body.code,
-			redirect_uri: req.body.redirect_uri,
+			redirect_uri: req.body.redirect_uri_post,
 			grant_type: 'authorization_code'
 		};
 		console.log('POST - BODY >>> ', body);
