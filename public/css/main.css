@@ -1,24 +1,43 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600);
 
 :root {
-	--color-main: #002c8f;
+	--color-main: #008fff;
 	--color-primary: #f9f9f9;
 	--color-secondary: #ccc;
+	--color-tertiary: #ff7000;
 	--color-white: #fff;
 	--color-black: #000;
 }
 
 * {
 	box-sizing: border-box;
+	margin: 0 auto;
 }
 
 body {
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
+header {
+	background-color: var(--color-main);
+	color: var(--color-white);
+	padding: 0.5rem;
+}
+
 header h2,
 p {
-	margin: 0 auto;
+	margin: 0.5rem auto;
+}
+
+/* SECTION INFO */
+
+.container__info {
+	display: none;
+	margin: 0.5rem auto;
+}
+
+.container__info ul {
+	list-style-type: none;
 }
 
 .container__steps {
@@ -33,19 +52,20 @@ p {
 	border: 1px solid var(--color-main);
 	background-color: var(--color-primary);
 	padding: 0.5rem;
+	width: 100%;
 }
 
 .container__form h4 {
 	margin: 0;
 }
 
-.input--group__params {
+.input__group--params {
 	border: none;
 	/* border: 1px solid var(--color-main); */
 	/* padding: 0 0.5rem; */
 }
 
-.input--group__params input {
+.input__group--params input {
 	border-color: var(--color-secondary);
 	border-radius: 1px;
 	margin: 0.5rem auto;
@@ -53,27 +73,30 @@ p {
 	width: 100%;
 }
 
-.input--group__params input:focus {
+.input__group--params input:focus {
 	outline: 0;
 	border-color: var(--color-main);
 }
 
-.input--group__scope {
+.input__group--scope {
 	/* border: 1px solid var(--color-main); */
 	margin-bottom: 0.5rem;
 }
 
 .container__token {
-	border: 1px solid var(--color-black);
+	border: 1px solid var(--color-main);
 	margin-top: 0.5rem;
+	padding: 0.5rem;
 }
+
+/* Button Styles */
 
 .btn {
 	color: var(--color-white);
-	border: none;
-	background-color: var(--color-main);
+	border: 1px solid var(--color-tertiary);
+	border-radius: 0.3rem;
+	background-color: var(--color-tertiary);
 	padding: 0.5rem;
-	/* margin: 0.5rem 0.5rem; */
 }
 
 /* Special Classes */

@@ -13,29 +13,50 @@
 		<header>
 			<h2>oAuth 2.0 Flow App</h2>
 			<p>Use this app to test and understand the oAuth 2.0 flow.</p>
-			<ul>
-				<li>This App was tested with NetSuite ERP;</li>
-				<li>On the Client Details provider, set the Redirect URI to <b>https://locahost:8080/</b>;</li>
-				<li>It's mandatory to use https!</li>
-				<li>The intent of this app is to be used locally;</li>
-				<li>To use the https module is necessary to have a OpenSSL key and certificate;</li>
-				<li>Set your own app config variables;</li>
-				<li>It's necessary to be logged in NetSuite ERP;</li>
-				<li>Please refer to the docs in <a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;</li>
-			</ul>
+			<button class="btn" id="moreinfo">More Info</button>
 		</header>
+
+		<section class="container__info">
+			<ul>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> This App was tested with NetSuite ERP;
+				</li>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> On the Client Details provider, set the
+					Redirect URI to <b>https://locahost:8080/</b>;
+				</li>
+				<li><box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> It's mandatory to use https!</li>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> The intent of this app is to be used
+					locally;
+				</li>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> To use the https module is necessary to
+					have a OpenSSL key and certificate;
+				</li>
+				<li><box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> Set your own app config variables;</li>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> It's necessary to be logged in NetSuite
+					ERP;
+				</li>
+				<li>
+					<box-icon type="solid" size="xs" name="chevron-right-circle"></box-icon> Please refer to the docs in
+					<a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;
+				</li>
+			</ul>
+		</section>
 
 		<section class="container__steps">
 			<div class="container__form">
 				<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
 
 				<form action="/v1/oauth2" method="get">
-					<div class="input--group__params">
+					<div class="input__group--params">
 						<input type="text" id="clientid" name="clientid" placeholder="Client ID" /><br />
 						<input type="text" id="state" name="state" placeholder="State" /><br />
 						<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" /><br />
 					</div>
-					<div class="input--group__scope">
+					<div class="input__group--scope">
 						<span>Scope</span><br />
 						<input type="checkbox" id="restlet" name="scope" value="restlets" checked />
 						<label for="restlets"> Restlets</label><br />
@@ -52,12 +73,12 @@
 				<h4>Step 2 - POST Request to the Token Endpoint.</h4>
 
 				<form action="/v1/oauth2" method="post">
-					<div class="input--group__params">
+					<div class="input__group--params">
 						<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" /><br />
 						<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" /><br />
 					</div>
 
-					<div class="input--group__scope">
+					<div class="input__group--scope">
 						<span>Grant Type</span><br />
 
 						<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" checked />
@@ -76,6 +97,13 @@
 			<textarea name="token" id="token" cols="30" rows="10"><%= access_token %></textarea>
 		</section>
 
+		<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+			integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 		<script src="../js/index.js"></script>
 	</body>
 </html>

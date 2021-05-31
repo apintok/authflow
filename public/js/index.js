@@ -1,7 +1,10 @@
+const moreInfoBtn = document.getElementById('moreinfo');
+const infoSection = document.querySelector('.container__info');
 const authorize = document.getElementById('authorize');
 const formGET = document.getElementsByTagName('form')[0];
 const formPOST = document.getElementsByTagName('form')[1];
 const redirectUriPost = document.getElementById('redirect_uri_post');
+let clicked = false;
 
 formGET.addEventListener('submit', function (e) {
 	const [...checkboxes] = document.getElementsByName('scope');
@@ -23,3 +26,20 @@ formGET.addEventListener('submit', function (e) {
 redirectUriPost.value = localStorage.getItem('redirectUri');
 
 const validateCheckboxes = () => {};
+
+// JQUERY
+
+$(moreInfoBtn).click(function () {
+	if (clicked) {
+		$(infoSection).slideUp(400, 'linear', function () {
+			moreInfoBtn.textContent = 'More Info';
+		});
+		clicked = false;
+	} else {
+		$(infoSection).slideDown(500, 'linear', function () {
+			moreInfoBtn.textContent = 'Less Info';
+			$(this).css('display', 'inline-block');
+		});
+		clicked = true;
+	}
+});
