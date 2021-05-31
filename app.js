@@ -92,7 +92,7 @@ app.post('/v1/oauth2', async (req, res) => {
 
 		res.render('index', {
 			code: body.code,
-			access_token: data.access_token
+			access_token: JSON.stringify(data, null, 2)
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));

@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<header>
-			<h2>oAuth 2.0 Flow App</h2>
+			<h2><a href="/">oAuth</a> 2.0 Flow App</h2>
 			<p>Use this app to test and understand the oAuth 2.0 flow.</p>
 			<button class="btn" id="moreinfo">More Info</button>
 		</header>
@@ -94,7 +94,9 @@
 
 		<section class="container__token">
 			<h4>Token Result</h4>
-			<textarea name="token" id="token" cols="30" rows="10"><%= access_token %></textarea>
+			<div>
+				<pre class="result__token"><code><%= access_token %></code></pre>
+			</div>
 		</section>
 
 		<script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
