@@ -41,14 +41,23 @@ Add the Client ID and Secret and replace the **ACCOUNT ID** in both URLs for the
 
 **Step 1:**
 
-In order to reach the endpoint of the client there are 5 mandatory parameters. Is necessary to enter the Client ID, the State, the Redirect URI and select one or both of Restlets and Rest Web Services for the Scope. The Response Type is always 'code', so no need to enter it.
+In order to reach the endpoint of the client there are 5 mandatory parameters. Is necessary to enter the _Client ID_, the _State_, the _Redirect URI_ and select one or both of Restlets and Rest Web Services for the _Scope_. The Response Type is always 'code', so no need to enter it.
 
-After clicking Authorize, user is redirected to the consent screen, after authorizing access, there's another redirect back to the App. This redirect will provide the Code parameter provided by the Client which is needed for the next step.
+After clicking Authorize, user is redirected to the consent screen. After authorizing access, there's another redirect back to the App. This redirect will provide the Code parameter provided by the Client which is needed for the next step.
 
 **Step 2:**
 
-To get the Token is necessary to enter the Code. This is done automatically by the app. The Redirect URI will be saved locally and is passed from **Step 1** to **Step 2**. Select the Grant Type and click Get Token.
-The Access Token will be return on the text area at the bottom of the page.
+To get the Token is necessary to enter the Code. This is done automatically by the App (the Code value is taken from the URL Parameters). The Redirect URI will be saved locally and is passed from **Step 1** to **Step 2**. The Grant Type is always Authorization Code for this step. Click Get Token.
+The Access Token will be returned at the bottom of the page under the Token Result section.
+
+**Step 3:**
+
+Here the current issued Token can be refreshed if necessary. Only 2 parameters are needed: the _Grant Type_ and the _Refresh Token_ returned from **Step 2**.
+The Grant Type always needs to be Refresh Token.
+
+**Step 4:**
+
+In development....
 
 ---
 
@@ -63,9 +72,11 @@ The Access Token will be return on the text area at the bottom of the page.
 - NodeJS Code
   - Structure the Routes;
   - Create a option/function to automatically generate a new state;
-  - Create a function for the Authorization encoding;
   - Create a function for the Error handling;
   - Create a function to separate the Checkbox values return by the form; :heavy_check_mark:
+  - Function to deal with the Basic Auth :heavy_check_mark:
+  - ...
+- Client JS
   - ...
 - Problems
   - On Step 1, it should be possible to select one or both checkboxes. None should not be possible. If none are selected this will break the flow;

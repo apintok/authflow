@@ -59,20 +59,14 @@ app.post('/v1/oauth2', async (req, res) => {
 		const body = {
 			code: req.body.code,
 			redirect_uri: req.body.redirect_uri_post,
-			grant_type: 'authorization_code'
+			grant_type: req.body.grant_type
 		};
-		console.log('POST - BODY >>> ', body);
-
-		const username = process.env.CLIENTID;
-		const password = process.env.CLIENTSECRET;
-
-		const buff = username + ':' + password;
-		const encode = Buffer.from(buff).toString('base64');
+		console.log('\nPOST - BODY 2 >>> ', body);
 
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/x-www-form-urlencoded',
-			Authorization: 'Basic ' + encode
+			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
 		};
 
 		const data = await axios
@@ -92,6 +86,45 @@ app.post('/v1/oauth2', async (req, res) => {
 
 		res.render('index', {
 			code: body.code,
+			access_token: JSON.stringify(data, null, 2)
+		});
+	} catch (error) {
+		console.log('ERROR >>> ', JSON.stringify(error));
+		res.status(500).end();
+	}
+});
+
+app.post('/v1/oauth/refresh', async (req, res) => {
+	try {
+		const body = {
+			refresh_token: req.body.refresh,
+			grant_type: req.body.grant_type
+		};
+		console.log('POST - BODY >>> ', body);
+
+		const headers = {
+			Accept: '*/*',
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
+		};
+
+		const data = await axios
+			.post(process.env.TOKEN_URL, new URLSearchParams(body), {
+				headers
+			})
+			.then((res) => {
+				console.log('RES CODE >>> ', res.status);
+
+				return res.data;
+			})
+			.catch((error) => {
+				console.log('ERROR >>> ', error);
+			});
+
+		console.log('DATA >>> ', data);
+
+		res.render('index', {
+			code: '',
 			access_token: JSON.stringify(data, null, 2)
 		});
 	} catch (error) {
@@ -127,4 +160,9 @@ const doubleScope = function (scope) {
 		return `${scope[0]} ${scope[1]}`;
 	}
 	return scope;
+};
+
+const basicAuth = function (username, password) {
+	const buff = username + ':' + password;
+	return Buffer.from(buff).toString('base64');
 };

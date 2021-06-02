@@ -29,7 +29,7 @@ p {
 	margin: 0.5rem auto;
 }
 
-a {
+header a {
 	text-decoration: none;
 	color: var(--color-white);
 }
@@ -51,6 +51,7 @@ a {
 	grid-gap: 0.5rem;
 	border: 1px solid var(--color-main);
 	padding: 0.5rem;
+	margin-top: 0.5rem;
 }
 
 .container__form {
@@ -66,8 +67,6 @@ a {
 
 .input__group--params {
 	border: none;
-	/* border: 1px solid var(--color-main); */
-	/* padding: 0 0.5rem; */
 }
 
 .input__group--params input {
@@ -84,14 +83,17 @@ a {
 }
 
 .input__group--scope {
-	/* border: 1px solid var(--color-main); */
 	margin-bottom: 0.5rem;
 }
 
 .container__token {
 	border: 1px solid var(--color-main);
-	margin-top: 0.5rem;
-	padding: 0.5rem;
+	margin: 0.5rem 0;
+	padding: 1rem;
+}
+
+.container__token--display {
+	border: 1px solid var(--color-main);
 }
 
 .result__token {
