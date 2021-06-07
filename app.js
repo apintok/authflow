@@ -94,13 +94,13 @@ app.post('/v1/oauth2', async (req, res) => {
 	}
 });
 
-app.post('/v1/oauth/refresh', async (req, res) => {
+app.post('/v1/oauth2/refresh', async (req, res) => {
 	try {
 		const body = {
 			refresh_token: req.body.refresh,
 			grant_type: req.body.grant_type
 		};
-		console.log('POST - BODY >>> ', body);
+		console.log('POST - BODY Refresh >>> ', body);
 
 		const headers = {
 			Accept: '*/*',
@@ -126,6 +126,44 @@ app.post('/v1/oauth/refresh', async (req, res) => {
 		res.render('index', {
 			code: '',
 			access_token: JSON.stringify(data, null, 2)
+		});
+	} catch (error) {
+		console.log('ERROR >>> ', JSON.stringify(error));
+		res.status(500).end();
+	}
+});
+
+app.post('/v1/oauth2/revoke', async (req, res) => {
+	try {
+		const body = {
+			token: req.body.token
+		};
+		console.log('POST - BODY >>> ', body);
+
+		const headers = {
+			Accept: '*/*',
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
+		};
+
+		const data = await axios
+			.post(process.env.REVOKE_URL, new URLSearchParams(body), {
+				headers
+			})
+			.then((res) => {
+				console.log('RES CODE >>> ', res.status);
+
+				return res.data;
+			})
+			.catch((error) => {
+				console.log('ERROR >>> ', error);
+			});
+
+		console.log('DATA >>> ', data);
+
+		res.render('index', {
+			code: '',
+			access_token: 'Token Successfully Revoked!'
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));

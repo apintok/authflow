@@ -31,7 +31,7 @@ Is necessary to have a cert.pem file and also a key.pem. I used OpenSSL for achi
 
 A config.env needs to be added relatively to _app.js_. As the App runs locally it should have a config.env file that looks like:
 
-<a href="https://www.facebook.com/andre.pinto.k/"><img src="https://i.imgur.com/Ahy2Fvj.jpg?1" align="left" height="120" width="600" ></a>
+<a href="#"><img src="https://i.imgur.com/7lcBBHQ.jpg" align="left" height="100" width="700" ></a>
 
 Add the Client ID and Secret and replace the **ACCOUNT ID** in both URLs for the respective ones.
 
@@ -50,14 +50,14 @@ After clicking Authorize, user is redirected to the consent screen. After author
 To get the Token is necessary to enter the Code. This is done automatically by the App (the Code value is taken from the URL Parameters). The Redirect URI will be saved locally and is passed from **Step 1** to **Step 2**. The Grant Type is always Authorization Code for this step. Click Get Token.
 The Access Token will be returned at the bottom of the page under the Token Result section.
 
-**Step 3:**
+**Refresh Token (Step 3):**
 
 Here the current issued Token can be refreshed if necessary. Only 2 parameters are needed: the _Grant Type_ and the _Refresh Token_ returned from **Step 2**.
 The Grant Type always needs to be Refresh Token.
 
-**Step 4:**
+**Revoke Token (Step 4):**
 
-In development....
+The value of the token parameter is the value of the refresh token that the application revokes. The _Refresh Token_ value returned from either **Step 2** or **Step 3**
 
 ---
 

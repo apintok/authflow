@@ -101,7 +101,7 @@
 			<div class="container__form">
 				<h4>Step 3 - Refresh Token</h4>
 
-				<form method="post" action="/v1/oauth/refresh">
+				<form action="/v1/oauth2/refresh" method="post">
 					<div class="input__group--params">
 						<input type="text" id="refresh" name="refresh" value="" placeholder="Refresh Token" required /><br />
 					</div>
@@ -121,9 +121,9 @@
 			<div class="container__form">
 				<h4>Step 4 - Revoke Token</h4>
 
-				<form method="post">
+				<form action="/v1/oauth2/revoke" method="post">
 					<div class="input__group--params">
-						<input type="text" id="revoke" name="revoke" value="" placeholder="Revoke Token" required /><br />
+						<input type="text" id="revoke" name="token" value="" placeholder="Revoke Token" required /><br />
 					</div>
 
 					<input class="btn" type="submit" value="Revoke Token" />
@@ -137,6 +137,17 @@
 				<pre class="result__token"><code><%= access_token %></code></pre>
 			</div>
 		</section>
+
+		<footer>
+			<p>The oAuth 2.0 Flow App is not licensed under anything.</p>
+			<p>
+				This tool is provided without warranty or guarantee. Note that use of this tool may or may not crash your browser,
+				lock up your machine, erase your hard drive, or e-mail those naughty pictures you hid in the Utilities folder to
+				your mother. Don't blame me if anything bad happens to you, because it's actually the aliens' fault. The code
+				expressed herein is solely that of the author, and he's none too swift with the JavaScript, if you know what we
+				mean, so it's likely to cause giggle fits in anyone who knows what they're doing.
+			</p>
+		</footer>
 
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
