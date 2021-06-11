@@ -38,7 +38,7 @@ $(moreInfoBtn).click(function () {
 	} else {
 		$(infoSection).slideDown(500, 'linear', function () {
 			moreInfoBtn.textContent = 'Less Info';
-			$(this).css('display', 'inline-block');
+			$(this).css('display', 'flex');
 		});
 		clicked = true;
 	}

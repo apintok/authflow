@@ -1,4 +1,4 @@
-**v 1.0.0** :hammer:
+**v 1.1.0** :hammer:
 
 ---
 
@@ -64,22 +64,22 @@ The value of the token parameter is the value of the refresh token that the appl
 ## Next Steps / Working on :construction:
 
 - UI
-  - Simple;
   - Improve the forms;
-  - Add Refresh Token option;
-  - Add Revoke Token option;
-  - ...
+  - Created a new Homepage; :heavy_check_mark:
+  - Added a navbar for better navigation; :heavy_check_mark:
+  - Added a header; :heavy_check_mark:
+  - Adding the possibility of testing both oAuth 1.0 and oAuth 2.0 flows;
+  - Added a footer; :heavy_check_mark:
 - NodeJS Code
-  - Structure the Routes;
+  - Structure the Routes; :heavy_check_mark:
   - Create a option/function to automatically generate a new state;
   - Create a function for the Error handling;
-  - Create a function to separate the Checkbox values return by the form; :heavy_check_mark:
   - Function to deal with the Basic Auth :heavy_check_mark:
   - ...
 - Client JS
+  - I've added jquery to assist me with client side JavaScript, so I need to use only jquery moving forward;
   - ...
 - Problems
-  - On Step 1, it should be possible to select one or both checkboxes. None should not be possible. If none are selected this will break the flow;
   - On Step 2, one checkbox needs to be mandatory. None or both should not be possible, so I'll use Radio Buttons instead; :heavy_check_mark:
   - There are several I bet. Work in progress...
 
