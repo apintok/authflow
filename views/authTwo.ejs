@@ -47,7 +47,7 @@
 			<div class="container__form">
 				<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
 
-				<form action="/v1/oauth2" method="get">
+				<form id="oauth2_step1" action="/v1/oauth2" method="get">
 					<div class="input__group--params">
 						<input type="text" id="clientid" name="clientid" placeholder="Client ID" required /><br />
 						<input type="text" id="state" name="state" placeholder="State" required /><br />
@@ -69,7 +69,7 @@
 			<div class="container__form">
 				<h4>Step 2 - POST Request to the Token Endpoint.</h4>
 
-				<form action="/v1/oauth2" method="post">
+				<form id="oauth2_step2" action="/v1/oauth2" method="post">
 					<div class="input__group--params">
 						<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" required /><br />
 						<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" required /><br />
@@ -90,7 +90,7 @@
 			<div class="container__form">
 				<h4>Step 3 - Refresh Token</h4>
 
-				<form action="/v1/oauth2/refresh" method="post">
+				<form id="oauth2_step3" action="/v1/oauth2/refresh" method="post">
 					<div class="input__group--params">
 						<input type="text" id="refresh" name="refresh" value="" placeholder="Refresh Token" required /><br />
 					</div>
@@ -110,7 +110,7 @@
 			<div class="container__form">
 				<h4>Step 4 - Revoke Token</h4>
 
-				<form action="/v1/oauth2/revoke" method="post">
+				<form id="oauth2_step4" action="/v1/oauth2/revoke" method="post">
 					<div class="input__group--params">
 						<input type="text" id="revoke" name="token" value="" placeholder="Revoke Token" required /><br />
 					</div>

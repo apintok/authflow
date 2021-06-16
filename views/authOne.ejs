@@ -5,71 +5,77 @@
         <%- include('./partials/header') %>
 
 		<section class="container__info">
-			<ul>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> This App was tested with
-					NetSuite ERP;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> On the Client Details
-					provider, set the Redirect URI to <b>https://locahost:8080/</b>;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> It's mandatory to use
-					https!
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> The intent of this app is
-					to be used locally;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> To use the https module is
-					necessary to have a OpenSSL key and certificate;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Set your own app config
-					variables;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> It's necessary to be
-					logged in NetSuite ERP;
-				</li>
-				<li>
-					<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Please refer to the docs
-					in <a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;
-				</li>
-			</ul>
+			<div>
+				<ul>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> This App was tested with
+						NetSuite ERP;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> On the Client Details
+						provider, set the Redirect URI to <b>https://locahost:8080/</b>;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> It's mandatory to use
+						https!
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> The intent of this app is
+						to be used locally;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> To use the https module is
+						necessary to have a OpenSSL key and certificate;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Set your own app config
+						variables;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> It's necessary to be
+						logged in NetSuite ERP;
+					</li>
+					<li>
+						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Please refer to the docs
+						in <a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;
+					</li>
+				</ul>
+			</div>
 		</section>
 
 		<section class="container__steps">
 			<div class="container__form">
-				<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
+				<h4>Step 1 - Obtain An Unauthorized Request Token.</h4>
 
-				<form action="/v1/oauth2" method="get">
+				<form id="oauth1_step1" action="/v1/oauth1/obtain" method="post">
 					<div class="input__group--params">
-						<input type="text" id="clientid" name="clientid" placeholder="Client ID" required /><br />
-						<input type="text" id="state" name="state" placeholder="State" required /><br />
-						<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" required /><br />
+						<input type="text" id="oauth_consumer_key" name="oauth_consumer_key" placeholder="Consumer Key" required /><br />
+						<input type="text" id="consumersecret" name="consumersecret" placeholder="Consumer Secret" required /><br />
+						<input type="text" id="realm" name="realm" placeholder="Realm" required /><br />
+						<input type="text" id="oauth_callback" name="oauth_callback" placeholder="Callback URL" required /><br />
 					</div>
 					<div class="input__group--scope">
-						<span>Scope</span><br />
-						<input type="checkbox" id="restlet" name="scope" value="restlets" checked />
-						<label for="restlets"> Restlets</label><br />
-						<input type="checkbox" id="rest_webservices" name="scope" value="rest_webservices" />
-						<label for="rest_webservices"> Rest Web Services</label><br />
-						<span class="warning">Warning - Please Select 1 or 2 Scopes.</span>
+						<span>Signature Method</span><br />
+						<input type="checkbox" id="hmac1" name="oauth_signature_method" value="HMAC-SHA1" disabled />
+						<label for="oauth_signature_method"> HMAC-SHA1</label><br />
+						<input type="checkbox" id="hmac256" name="oauth_signature_method" value="HMAC-SHA256" checked />
+						<label for="oauth_signature_method"> HMAC-SHA256</label><br />
+						<span>oAuth Version</span><br />
+						<input type="checkbox" id="oauth_version" name="oauth_version" value="1.0" checked />
+						<label for="oauth_version"> 1.0</label><br />
+						<span>Nonce, Timestamp and Signature are generate automatically based on input values.</span>
 					</div>
 
-					<input class="btn" id="authorize" type="submit" value="Authorize" />
+					<input class="btn" id="obtain" type="submit" value="Obtain" />
 				</form>
 			</div>
 
 			<div class="container__form">
-				<h4>Step 2 - POST Request to the Token Endpoint.</h4>
+				<h4>Step 2 - Authorize the Request Token.</h4>
 
-				<form action="/v1/oauth2" method="post">
+				<form id="oauth1_step2" action="/v1/oauth1/authorize" method="get">
 					<div class="input__group--params">
-						<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" required /><br />
+						<input type="text" id="code" name="code" value="" placeholder="Code" required /><br />
 						<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" required /><br />
 					</div>
 
@@ -86,9 +92,9 @@
 			</div>
 
 			<div class="container__form">
-				<h4>Step 3 - Refresh Token</h4>
+				<h4>Step 3 - Exchange the Request Token for an Access Token</h4>
 
-				<form action="/v1/oauth2/refresh" method="post">
+				<form id="oauth1_step4" action="/v1/oauth1/exchange" method="post">
 					<div class="input__group--params">
 						<input type="text" id="refresh" name="refresh" value="" placeholder="Refresh Token" required /><br />
 					</div>

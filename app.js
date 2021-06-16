@@ -4,6 +4,7 @@ const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const port = process.env.PORT || 8080;
+const authOneRoutes = require('./src/routes/auth1Routes');
 const authTwoRoutes = require('./src/routes/auth2Routes');
 const mainRoutes = require('./src/routes/mainRoutes');
 const app = express();
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 // ROUTES
+app.use(authOneRoutes);
 app.use(authTwoRoutes);
 app.use(mainRoutes);
 

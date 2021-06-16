@@ -1,10 +1,14 @@
 const express = require('express');
 const axios = require('axios');
+const { buildParams, doubleScope, basicAuth } = require('../utils/helpers');
 const router = express.Router();
+
+const version = '2.0';
 
 router.get('/v1/oauth2', (req, res) => {
 	try {
 		const redirectURL = process.env.AUTH_URL;
+		console.log(redirectURL);
 		const params = {
 			response_type: 'code',
 			client_id: req.query.clientid,
@@ -17,7 +21,7 @@ router.get('/v1/oauth2', (req, res) => {
 
 		res.redirect(redirectURL + urlParams);
 	} catch (error) {
-		console.log('ERROR >>> ', JSON.stringify(error));
+		console.log('ERROR STEP 1 >>> ', JSON.stringify(error));
 		res.status(500).end();
 	}
 });
@@ -44,6 +48,7 @@ router.post('/v1/oauth2', async (req, res) => {
 				headers
 			})
 			.then((res) => {
+				console.log('RES >>> ', res);
 				console.log('RES CODE >>> ', res.status);
 
 				return res.data;
@@ -54,12 +59,14 @@ router.post('/v1/oauth2', async (req, res) => {
 
 		console.log('DATA >>> ', data);
 
-		res.render('index', {
+		res.render('authTwo', {
+			home: 'Home',
+			version,
 			code: body.code,
 			access_token: JSON.stringify(data, null, 2)
 		});
 	} catch (error) {
-		console.log('ERROR >>> ', JSON.stringify(error));
+		console.log('ERROR STEP 2 >>> ', JSON.stringify(error));
 		res.status(500).end();
 	}
 });
@@ -93,7 +100,9 @@ router.post('/v1/oauth2/refresh', async (req, res) => {
 
 		console.log('DATA >>> ', data);
 
-		res.render('index', {
+		res.render('authTwo', {
+			home: 'Home',
+			version,
 			code: '',
 			access_token: JSON.stringify(data, null, 2)
 		});
@@ -132,6 +141,8 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 		console.log('DATA >>> ', data);
 
 		res.render('index', {
+			home: 'Home',
+			version,
 			code: '',
 			access_token: 'Token Successfully Revoked!'
 		});
@@ -140,30 +151,5 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 		res.status(500).end();
 	}
 });
-
-const buildParams = function (params) {
-	const keys = Object.keys(params);
-	const values = Object.entries(params);
-	let str = '';
-
-	for (let i = 0; i < values.length; i++) {
-		str += keys[i] + '=' + values[i][1] + '&';
-	}
-
-	const urlParams = str.slice(0, str.length - 1);
-	return urlParams;
-};
-
-const doubleScope = function (scope) {
-	if (Array.isArray(scope)) {
-		return `${scope[0]} ${scope[1]}`;
-	}
-	return scope;
-};
-
-const basicAuth = function (username, password) {
-	const buff = username + ':' + password;
-	return Buffer.from(buff).toString('base64');
-};
 
 module.exports = router;
