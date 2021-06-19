@@ -63,7 +63,8 @@ router.post('/v1/oauth2', async (req, res) => {
 			home: 'Home',
 			version,
 			code: body.code,
-			access_token: JSON.stringify(data, null, 2)
+			// data: JSON.stringify(data, null, 2)
+			data
 		});
 	} catch (error) {
 		console.log('ERROR STEP 2 >>> ', JSON.stringify(error));
@@ -104,7 +105,7 @@ router.post('/v1/oauth2/refresh', async (req, res) => {
 			home: 'Home',
 			version,
 			code: '',
-			access_token: JSON.stringify(data, null, 2)
+			data: JSON.stringify(data, null, 2)
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));
@@ -144,7 +145,7 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 			home: 'Home',
 			version,
 			code: '',
-			access_token: 'Token Successfully Revoked!'
+			data: 'Token Successfully Revoked!'
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));

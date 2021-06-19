@@ -1,4 +1,11 @@
 const CryptoJS = require('crypto-js');
+const chalk = require('chalk'),
+	log = console.log,
+	msg = chalk.bold.blue,
+	scs = chalk.bold.green,
+	err = chalk.bold.red,
+	wrn = chalk.bold.yellow;
+// --------------------------------- \\
 
 const buildParams = function (params) {
 	const keys = Object.keys(params);
@@ -54,24 +61,29 @@ const buildBaseString = function (httpAction, url, data) {
 	const timestamp = calcTimestamp();
 	const nonce = calcNonce();
 
-	const info = [
-		'oauth_callback=' + encodeURIComponent(data.oauth_callback),
-		'oauth_consumer_key=' + data.oauth_consumer_key,
-		'oauth_nonce=' + nonce,
-		'oauth_signature_method=' + data.oauth_signature_method,
-		'oauth_timestamp=' + timestamp,
-		'oauth_version=' + data.oauth_version
-	];
+	let info = [];
+	for (const key in data) {
+		if (Object.hasOwnProperty.call(data, key)) {
+			console.log(wrn('\nKEY >>> '), scs(key));
+			if (key !== 'realm') {
+				info.push(`${key}=${data[key]}`);
+			}
+		}
+	}
 
-	// console.log(info);
-	const arrange = info.sort();
+	info.push('oauth_timestamp=' + timestamp);
+	info.push('oauth_nonce=' + nonce);
+
+	// console.log(wrn('\nINFO >>> '), wrn(info));
+
+	const infoSorted = info.sort();
+	console.log(wrn('\nSORTED >>> '), infoSorted);
 
 	let dataString = '';
-	for (let i = 0; i < arrange.length; i++) {
-		dataString += arrange[i] + '&';
+	for (let i = 0; i < infoSorted.length; i++) {
+		dataString += infoSorted[i] + '&';
 	}
 	dataString = dataString.slice(0, dataString.length - 1);
-	// console.log(dataString);
 
 	let baseString = httpAction + '&' + encodeURIComponent(url) + '&';
 	// console.log(baseString + encodeURIComponent(dataString));

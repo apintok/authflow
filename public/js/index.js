@@ -23,7 +23,9 @@ formStepOne.addEventListener('submit', function (e) {
 	}
 });
 
-redirectUriPost.value = localStorage.getItem('redirectUri');
+if (redirectUriPost) {
+	redirectUriPost.value = localStorage.getItem('redirectUri');
+}
 
 // JQUERY
 

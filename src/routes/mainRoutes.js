@@ -8,22 +8,23 @@ router.get('/', (req, res) => {
 });
 
 router.get('/v1/authflow/one', (req, res) => {
-	console.log(req.query);
+	console.log('QUERY MAIN 1 >>> ', req.query);
 	res.render('authOne', {
 		home: 'Home',
 		version: '1.0',
 		code: req.query,
-		access_token: ''
+		oauth_token: '',
+		data: ''
 	});
 });
 
 router.get('/v1/authflow/two', (req, res) => {
-	console.log(req.query);
+	console.log('QUERY MAIN 2 >>> ', req.query);
 	res.render('authTwo', {
 		home: 'Home',
 		version: '2.0',
 		code: req.query,
-		access_token: ''
+		data: ''
 	});
 });
 

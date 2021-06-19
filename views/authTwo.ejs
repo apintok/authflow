@@ -44,86 +44,93 @@
 		</section>
 
 		<section class="container__steps">
-			<div class="container__form">
-				<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
-
-				<form id="oauth2_step1" action="/v1/oauth2" method="get">
-					<div class="input__group--params">
-						<input type="text" id="clientid" name="clientid" placeholder="Client ID" required /><br />
-						<input type="text" id="state" name="state" placeholder="State" required /><br />
-						<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" required /><br />
-					</div>
-					<div class="input__group--scope">
-						<span>Scope</span><br />
-						<input type="checkbox" id="restlet" name="scope" value="restlets" checked />
-						<label for="restlets"> Restlets</label><br />
-						<input type="checkbox" id="rest_webservices" name="scope" value="rest_webservices" />
-						<label for="rest_webservices"> Rest Web Services</label><br />
-						<span class="warning">Warning - Please Select 1 or 2 Scopes.</span>
-					</div>
-
-					<input class="btn" id="authorize" type="submit" value="Authorize" />
-				</form>
-			</div>
-
-			<div class="container__form">
-				<h4>Step 2 - POST Request to the Token Endpoint.</h4>
-
-				<form id="oauth2_step2" action="/v1/oauth2" method="post">
-					<div class="input__group--params">
-						<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" required /><br />
-						<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" required /><br />
-					</div>
-
-					<div class="input__group--scope">
-						<span>Grant Type</span><br />
-						<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" checked />
-						<label for="authorization_code"> Authorization Code</label><br />
-						<input type="radio" id="refresh_token" name="grant_type" value="refresh_token" disabled />
-						<label for="refresh_token"> Refresh Token</label><br />
-					</div>
-
-					<input class="btn" type="submit" value="Get Token" />
-				</form>
-			</div>
-
-			<div class="container__form">
-				<h4>Step 3 - Refresh Token</h4>
-
-				<form id="oauth2_step3" action="/v1/oauth2/refresh" method="post">
-					<div class="input__group--params">
-						<input type="text" id="refresh" name="refresh" value="" placeholder="Refresh Token" required /><br />
-					</div>
-
-					<div class="input__group--scope">
-						<span>Grant Type</span><br />
-						<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" disabled />
-						<label for="authorization_code"> Authorization Code</label><br />
-						<input type="radio" id="refresh_token" name="grant_type" value="refresh_token" checked />
-						<label for="refresh_token"> Refresh Token</label><br />
-					</div>
-
-					<input class="btn" type="submit" value="Refresh Token" />
-				</form>
-			</div>
-
-			<div class="container__form">
-				<h4>Step 4 - Revoke Token</h4>
-
-				<form id="oauth2_step4" action="/v1/oauth2/revoke" method="post">
-					<div class="input__group--params">
-						<input type="text" id="revoke" name="token" value="" placeholder="Revoke Token" required /><br />
-					</div>
-
-					<input class="btn" type="submit" value="Revoke Token" />
-				</form>
+			<div class="container__steps--display">
+				<div class="container__form">
+					<h4>Step 1 - GET Request to the Authorization Endpoint.</h4>
+	
+					<form id="oauth2_step1" action="/v1/oauth2" method="get">
+						<div class="input__group--params">
+							<input type="text" id="clientid" name="clientid" placeholder="Client ID" required /><br />
+							<input type="text" id="state" name="state" placeholder="State" required /><br />
+							<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" required /><br />
+						</div>
+						<div class="input__group--scope">
+							<span>Scope</span><br />
+							<input type="checkbox" id="restlet" name="scope" value="restlets" checked />
+							<label for="restlets"> Restlets</label><br />
+							<input type="checkbox" id="rest_webservices" name="scope" value="rest_webservices" />
+							<label for="rest_webservices"> Rest Web Services</label><br />
+							<span class="warning">Warning - Please Select 1 or 2 Scopes.</span>
+						</div>
+	
+						<input class="btn" id="authorize" type="submit" value="Authorize" />
+					</form>
+				</div>
+	
+				<div class="container__form">
+					<h4>Step 2 - POST Request to the Token Endpoint.</h4>
+	
+					<form id="oauth2_step2" action="/v1/oauth2" method="post">
+						<div class="input__group--params">
+							<input type="text" id="code" name="code" value="<%= code.code %>" placeholder="Code" required /><br />
+							<input type="text" id="redirect_uri_post" name="redirect_uri_post" placeholder="Redirect URI" required /><br />
+						</div>
+	
+						<div class="input__group--scope">
+							<span>Grant Type</span><br />
+							<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" checked />
+							<label for="authorization_code"> Authorization Code</label><br />
+							<input type="radio" id="refresh_token" name="grant_type" value="refresh_token" disabled />
+							<label for="refresh_token"> Refresh Token</label><br />
+						</div>
+	
+						<input class="btn" type="submit" value="Get Token" />
+					</form>
+				</div>
+	
+				<div class="container__form">
+					<h4>Step 3 - Refresh Token</h4>
+	
+					<form id="oauth2_step3" action="/v1/oauth2/refresh" method="post">
+						<div class="input__group--params">
+							<input type="text" id="refresh" name="refresh" value="" placeholder="Refresh Token" required /><br />
+						</div>
+	
+						<div class="input__group--scope">
+							<span>Grant Type</span><br />
+							<input type="radio" id="authorization_code" name="grant_type" value="authorization_code" disabled />
+							<label for="authorization_code"> Authorization Code</label><br />
+							<input type="radio" id="refresh_token" name="grant_type" value="refresh_token" checked />
+							<label for="refresh_token"> Refresh Token</label><br />
+						</div>
+	
+						<input class="btn" type="submit" value="Refresh Token" />
+					</form>
+				</div>
+	
+				<div class="container__form">
+					<h4>Step 4 - Revoke Token</h4>
+	
+					<form id="oauth2_step4" action="/v1/oauth2/revoke" method="post">
+						<div class="input__group--params">
+							<input type="text" id="revoke" name="token" value="" placeholder="Revoke Token" required /><br />
+						</div>
+	
+						<input class="btn" type="submit" value="Revoke Token" />
+					</form>
+				</div>
 			</div>
 		</section>
 
 		<section class="container__token">
 			<h4>Token Result</h4>
 			<div class="container__token--display">
-				<pre class="result__token"><code><%= access_token %></code></pre>
+				<!-- <pre class="result__token"><code></code></pre> -->
+				<% for (const key in data) { %>
+					<% if (Object.hasOwnProperty.call(data, key)) { %>
+						<input type="text" value="<%= data[key]%>"/>
+					<% } %>
+				<% } %>
 			</div>
 		</section>
 	

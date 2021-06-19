@@ -61,8 +61,8 @@ body {
 	border-radius: 20px;
 	margin: 1rem;
 	padding: 1.2rem;
-	width: 22rem;
-	height: 20rem;
+	width: 24rem;
+	height: 24rem;
 	position: relative;
 	text-align: justify;
 }
@@ -132,17 +132,11 @@ header a {
 	list-style-type: none;
 }
 
-.container__steps {
+.container__steps--display {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-gap: 0.5rem;
 	margin: 0.5rem;
-}
-
-@media (max-width: 768px) {
-	.container__steps {
-		grid-template-columns: auto;
-	}
 }
 
 .container__form {
@@ -154,6 +148,23 @@ header a {
 
 .container__form h4 {
 	margin: 0;
+	width: 40rem;
+}
+
+@media (max-width: 1330px) {
+	.container__form h4 {
+		width: 20rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.container__steps--display {
+		grid-template-columns: auto;
+	}
+
+	.container__form h4 {
+		width: auto;
+	}
 }
 
 .input__group--params {
@@ -179,7 +190,7 @@ header a {
 
 .container__token {
 	border: 1px solid var(--color-main);
-	background-color: var(--color-white);
+	background-color: var(--color-primary);
 	margin: 0 0.5rem;
 	padding: 1rem;
 }
@@ -187,6 +198,14 @@ header a {
 .container__token--display {
 	border: 1px solid var(--color-main);
 	padding: 0.5rem;
+	display: grid;
+	grid-gap: 0.5rem;
+}
+
+.container__token--display input {
+	margin: 0 auto;
+	padding: 0.5rem;
+	width: 100%;
 }
 
 .result__token {
@@ -216,4 +235,8 @@ pre {
 .warning {
 	display: none;
 	color: red;
+}
+
+.note {
+	font-size: 9px;
 }
