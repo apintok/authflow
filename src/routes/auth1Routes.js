@@ -4,14 +4,20 @@ const { buildParams, buildBaseString, calcSignature } = require('../utils/helper
 const router = express.Router();
 
 const version = '1.0';
-const realm = 'account';
+let realm = '';
+let consumerKey = '';
+let consumerSecret = '';
+let tokenSecret = '';
 
 router.post('/v1/oauth1/obtain', async (req, res) => {
 	try {
 		console.log('OBTAIN BODY >>> ', req.body);
+		realm = req.body.realm;
+		consumerKey = req.body.oauth_consumer_key;
+		consumerSecret = req.body.consumersecret;
 
 		const baseStringData = {
-			oauth_consumer_key: 'cd26d9e29fe2fd894e64eafa66b192cce6b535c6a5db08c50535d9abaa37d6cf',
+			oauth_consumer_key: consumerKey,
 			oauth_callback: encodeURIComponent('https://localhost:8080/v1/authflow/one'),
 			oauth_signature_method: 'HMAC-SHA256',
 			oauth_version: '1.0'
@@ -19,13 +25,13 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 
 		const baseString = buildBaseString(req.method, process.env.OBTAIN_URL, baseStringData);
 		console.log('\nBase String >>> ', baseString);
-		const signature = calcSignature(req.body.consumersecret, '', baseString.baseString);
+		const signature = calcSignature(consumerSecret, '', baseString.baseString);
 		console.log(signature);
 
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/json',
-			Authorization: `OAuth realm="${req.body.realm}", oauth_consumer_key="${req.body.oauth_consumer_key}", oauth_nonce="${
+			Authorization: `OAuth realm="${realm}", oauth_consumer_key="${req.body.oauth_consumer_key}", oauth_nonce="${
 				baseString.nonce
 			}", oauth_timestamp="${baseString.timestamp}", oauth_signature_method="${
 				req.body.oauth_signature_method
@@ -57,6 +63,7 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 		console.log(authToken[1]);
 		const authTokenSecret = values[1].split('=');
 		console.log(authTokenSecret[1]);
+		tokenSecret = authTokenSecret[1];
 
 		res.render('authOne', {
 			home: 'Home',
@@ -93,22 +100,17 @@ router.get('/v1/oauth1/authorize', async (req, res) => {
 router.post('/v1/oauth1/exchange', async (req, res) => {
 	try {
 		console.log('EXCHANGE BODY >>> ', req.body);
+		req.body.oauth_consumer_key = consumerKey;
 
 		const baseString = buildBaseString(req.method, process.env.EXCHGE_URL, req.body);
 		console.log('\nBase String >>> ', baseString);
-		const signature = calcSignature(req.body.consumersecret, req.body.oauth_token, baseString.baseString);
+		const signature = calcSignature(consumerSecret, tokenSecret, baseString.baseString);
 		console.log('\nSIGNATURE >>> ', signature);
 
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/json',
-			Authorization: `OAuth realm="${req.body.realm}", oauth_consumer_key="${req.body.oauth_consumer_key}", oauth_nonce="${
-				baseString.nonce
-			}", oauth_timestamp="${baseString.timestamp}", oauth_signature_method="${
-				req.body.oauth_signature_method
-			}", oauth_version="${req.body.oauth_version}", oauth_callback="${encodeURIComponent(
-				req.body.oauth_callback
-			)}", oauth_signature="${signature}"`
+			Authorization: `OAuth realm="${realm}", oauth_token="${req.body.oauth_token}", oauth_consumer_key="${consumerKey}", oauth_nonce="${baseString.nonce}", oauth_timestamp="${baseString.timestamp}", oauth_signature_method="${req.body.oauth_signature_method}", oauth_version="${req.body.oauth_version}", oauth_verifier="${req.body.oauth_verifier}", oauth_signature="${signature}"`
 		};
 
 		console.log('\nHEADER >>> ', headers);
