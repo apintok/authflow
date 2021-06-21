@@ -24,8 +24,10 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 			oauth_version: '1.0'
 		};
 
-		const baseString = buildBaseString(req.method, process.env.OBTAIN_URL, baseStringData);
+		const url = protocol + realm.toLowerCase() + process.env.OBTAIN_URL;
+		const baseString = buildBaseString(req.method, url, baseStringData);
 		console.log('\nBase String >>> ', baseString);
+
 		const signature = calcSignature(consumerSecret, '', baseString.baseString);
 		console.log(signature);
 
@@ -44,9 +46,7 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 		console.log('\nHEADER >>> ', headers);
 
 		const data = await axios
-			.post(process.env.OBTAIN_URL, '', {
-				headers
-			})
+			.post(url, '', { headers })
 			.then((res) => {
 				console.log('RES CODE >>> ', res.status);
 
@@ -83,8 +83,8 @@ router.get('/v1/oauth1/authorize', async (req, res) => {
 	try {
 		console.log('QUERY >>> ', req.query);
 
-		const redirectURL = process.env.AUTH_1_URL;
-		console.log(redirectURL);
+		const redirectURL = protocol + realm.toLowerCase() + process.env.AUTH_TOKEN_URL;
+		console.log('\nREDIRECT URL >>> ', redirectURL);
 		const params = {
 			oauth_token: req.query.oauth_token
 		};
@@ -103,7 +103,8 @@ router.post('/v1/oauth1/exchange', async (req, res) => {
 		console.log('EXCHANGE BODY >>> ', req.body);
 		req.body.oauth_consumer_key = consumerKey;
 
-		const baseString = buildBaseString(req.method, process.env.EXCHGE_URL, req.body);
+		const url = protocol + realm.toLowerCase() + process.env.EXCHGE_URL;
+		const baseString = buildBaseString(req.method, url, req.body);
 		console.log('\nBase String >>> ', baseString);
 		const signature = calcSignature(consumerSecret, tokenSecret, baseString.baseString);
 		console.log('\nSIGNATURE >>> ', signature);
@@ -117,9 +118,7 @@ router.post('/v1/oauth1/exchange', async (req, res) => {
 		console.log('\nHEADER >>> ', headers);
 
 		const data = await axios
-			.post(process.env.EXCHGE_URL, '', {
-				headers
-			})
+			.post(url, '', { headers })
 			.then((res) => {
 				console.log('RES CODE >>> ', res.status);
 

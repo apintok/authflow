@@ -110,7 +110,7 @@ router.post('/v1/oauth2/refresh', async (req, res) => {
 			home: 'Home',
 			version,
 			code: '',
-			data: JSON.stringify(data, null, 2)
+			data
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));
@@ -123,13 +123,16 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 		const body = {
 			token: req.body.token
 		};
-		console.log('POST - BODY >>> ', body);
+		console.log('REVOKE >>> ', body);
 
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/x-www-form-urlencoded',
 			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
 		};
+
+		console.log(protocol + realm.toLowerCase() + process.env.REVOKE_URL);
+		console.log(headers);
 
 		const data = await axios
 			.post(protocol + realm.toLowerCase() + process.env.REVOKE_URL, new URLSearchParams(body), {
@@ -146,11 +149,13 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 
 		console.log('DATA >>> ', data);
 
-		res.render('index', {
+		res.render('authTwo', {
 			home: 'Home',
 			version,
 			code: '',
-			data: 'Token Successfully Revoked!'
+			data: {
+				message: 'Token Successfully Revoked!'
+			}
 		});
 	} catch (error) {
 		console.log('ERROR >>> ', JSON.stringify(error));
