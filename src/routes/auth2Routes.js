@@ -4,11 +4,11 @@ const { buildParams, doubleScope, basicAuth } = require('../utils/helpers');
 const router = express.Router();
 
 const version = '2.0';
+const protocol = 'https://';
+let realm = '';
 
 router.get('/v1/oauth2', (req, res) => {
 	try {
-		const redirectURL = process.env.AUTH_URL;
-		console.log(redirectURL);
 		const params = {
 			response_type: 'code',
 			client_id: req.query.clientid,
@@ -17,6 +17,12 @@ router.get('/v1/oauth2', (req, res) => {
 			state: req.query.state
 		};
 		console.log('PARAMS >>> ', params);
+
+		realm = req.query.realm;
+
+		const redirectURL = protocol + realm.toLowerCase() + process.env.AUTH_URL;
+		console.log('\nREDIRECT URL >>> ', redirectURL);
+
 		const urlParams = buildParams(params);
 
 		res.redirect(redirectURL + urlParams);
@@ -44,7 +50,7 @@ router.post('/v1/oauth2', async (req, res) => {
 		console.log(headers);
 
 		const data = await axios
-			.post(process.env.TOKEN_URL, new URLSearchParams(body), {
+			.post(protocol + realm.toLowerCase() + process.env.TOKEN_URL, new URLSearchParams(body), {
 				headers
 			})
 			.then((res) => {
@@ -63,7 +69,6 @@ router.post('/v1/oauth2', async (req, res) => {
 			home: 'Home',
 			version,
 			code: body.code,
-			// data: JSON.stringify(data, null, 2)
 			data
 		});
 	} catch (error) {
@@ -87,7 +92,7 @@ router.post('/v1/oauth2/refresh', async (req, res) => {
 		};
 
 		const data = await axios
-			.post(process.env.TOKEN_URL, new URLSearchParams(body), {
+			.post(protocol + realm.toLowerCase() + process.env.TOKEN_URL, new URLSearchParams(body), {
 				headers
 			})
 			.then((res) => {
@@ -127,7 +132,7 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 		};
 
 		const data = await axios
-			.post(process.env.REVOKE_URL, new URLSearchParams(body), {
+			.post(protocol + realm.toLowerCase() + process.env.REVOKE_URL, new URLSearchParams(body), {
 				headers
 			})
 			.then((res) => {

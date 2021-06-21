@@ -197,15 +197,29 @@ header a {
 
 .container__token--display {
 	border: 1px solid var(--color-main);
-	padding: 0.5rem;
 	display: grid;
-	grid-gap: 0.5rem;
+	grid-template-columns: auto auto;
+	align-content: start;
+	padding: 0.5rem;
+}
+
+.container__token--display label {
+	background-color: var(--color-main);
+	color: var(--color-white);
+	padding: 0.5rem;
+	width: 100%;
 }
 
 .container__token--display input {
-	margin: 0 auto;
+	grid-column: 2 / span 9;
+	border-radius: 1px;
 	padding: 0.5rem;
 	width: 100%;
+}
+
+.container__token--display input:focus {
+	outline: 0;
+	border-color: var(--color-main);
 }
 
 .result__token {

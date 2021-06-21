@@ -50,6 +50,7 @@
 	
 					<form id="oauth2_step1" action="/v1/oauth2" method="get">
 						<div class="input__group--params">
+							<input type="text" id="realm" name="realm" placeholder="Realm" required /><br />
 							<input type="text" id="clientid" name="clientid" placeholder="Client ID" required /><br />
 							<input type="text" id="state" name="state" placeholder="State" required /><br />
 							<input type="text" id="redirect_uri" name="redirect_uri" placeholder="Redirect URI" required /><br />
@@ -125,9 +126,9 @@
 		<section class="container__token">
 			<h4>Token Result</h4>
 			<div class="container__token--display">
-				<!-- <pre class="result__token"><code></code></pre> -->
 				<% for (const key in data) { %>
 					<% if (Object.hasOwnProperty.call(data, key)) { %>
+						<label><%= key %></label>
 						<input type="text" value="<%= data[key]%>"/>
 					<% } %>
 				<% } %>

@@ -4,7 +4,7 @@
 
 ## Introduction :open_book:
 
-This small App main goal is to help understand and troubleshoot oAuth 2.0 Flow. It was made with NetSuite ERP as the client provider of the Integration details. This version shows how to get the Access Token which is used to authenticate Restlets or REST Web Services. For the time being this App intent is to be executed locally.
+This small App main goal is to help understand and troubleshoot both oAuth 1.0 and oAuth 2.0 Flow. It was made to work as a sort of Integration with NetSuite ERP as the client provider. After getting access to the provided client details you can retrieve the different Tokens using both flows.
 
 ---
 
@@ -16,6 +16,8 @@ This small App main goal is to help understand and troubleshoot oAuth 2.0 Flow. 
 - ejs
 - dotenv
 - axios
+- chalk
+- crypto-js
 
 **Please refer to package.json**
 
@@ -25,19 +27,33 @@ This small App main goal is to help understand and troubleshoot oAuth 2.0 Flow. 
 
 It should be a standard installation using `npm install` after downloading the code.
 
-**_Important to note_** that the Redirect URI needs to use https protocol. This is mandatory. As the App runs locally only, is necessary to configure SSL.
+**_Important to note_** if you run this App locally it is necessary to configure SSL.
 
 Is necessary to have a cert.pem file and also a key.pem. I used OpenSSL for achieving this.
 
-A config.env needs to be added relatively to _app.js_. As the App runs locally it should have a config.env file that looks like:
+A config.env needs to be added relatively to _app.js_. The file should contain the urls for each and respective Step of both flows. If the App runs locally it should have a config.env file that looks like:
 
-<a href="#"><img src="https://i.imgur.com/7lcBBHQ.jpg" align="left" height="100" width="700" ></a>
-
-Add the Client ID and Secret and replace the **ACCOUNT ID** in both URLs for the respective ones.
+<a href="#"><img src="https://i.imgur.com/7lcBBHQ.jpg" align="left" height="100" width="1500"></a>
 
 ---
 
-## Current Funcionality :heavy_check_mark:
+## Current Funcionality - oAuth 1.0 :heavy_check_mark:
+
+**Step 1:**
+
+In this step we retrieve the Unauthorized Request Token, which should be authorized by the application in Step Two of the flow.
+
+**Step 2:**
+
+It is necessary in this step to pass the previous Token. The user/app will be authenticated, after being redirect to the Client. The access is authorized. Another redirect takes the suer/app back to the initial page in order to proceed for the next step.
+
+**Step 3:**
+
+In this step the Request Token is exchanged by a Access Token which then can be used to perform authentication on other types of requests.
+
+---
+
+## Current Funcionality - oAuth 2.0 :heavy_check_mark:
 
 **Step 1:**
 
@@ -68,13 +84,14 @@ The value of the token parameter is the value of the refresh token that the appl
   - Created a new Homepage; :heavy_check_mark:
   - Added a navbar for better navigation; :heavy_check_mark:
   - Added a header; :heavy_check_mark:
-  - Adding the possibility of testing both oAuth 1.0 and oAuth 2.0 flows;
+  - Adding the possibility of testing both oAuth 1.0 and oAuth 2.0 flows; :heavy_check_mark:
   - Added a footer; :heavy_check_mark:
 - NodeJS Code
   - Structure the Routes; :heavy_check_mark:
   - Create a option/function to automatically generate a new state;
   - Create a function for the Error handling;
   - Function to deal with the Basic Auth :heavy_check_mark:
+  - Improve how the data flows from step to step;
   - ...
 - Client JS
   - I've added jquery to assist me with client side JavaScript, so I need to use only jquery moving forward;

@@ -112,9 +112,9 @@
 		<section class="container__token">
 			<h4>Response Values & Tokens</h4>
 			<div class="container__token--display">
-				<!-- <pre class="result__token"><code></code></pre> -->
 				<% 	for (let i = 0; i < data.length; i++) { %>
 					<% const value = data[i].split('='); %>
+					<label><%= value[0] %></label>
 					<input type="text" value="<%= value[1]%>"/>
 				<% }; %>
 			</div>

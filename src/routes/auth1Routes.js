@@ -4,6 +4,7 @@ const { buildParams, buildBaseString, calcSignature } = require('../utils/helper
 const router = express.Router();
 
 const version = '1.0';
+const protocol = 'https://';
 let realm = '';
 let consumerKey = '';
 let consumerSecret = '';
