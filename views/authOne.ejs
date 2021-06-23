@@ -4,40 +4,7 @@
 
         <%- include('./partials/header') %>
 
-		<section class="container__info">
-			<div>
-				<ul>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> This App was tested with and for
-						NetSuite ERP Integration;
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> It's necessary to be
-						logged in NetSuite ERP;
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> On the Client Details
-						provider, set the Redirect URI to <b>https://locahost:"port#"/</b>;
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> If used locally, it's mandatory to use
-						https!
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> To use the https module is
-						necessary to have a OpenSSL key and certificate;
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Set your own app config
-						variables;
-					</li>
-					<li>
-						<box-icon color="#ff7000" type="solid" size="xs" name="chevron-right-circle"></box-icon> Please refer to the docs
-						in <a href="https://github.com/apintok/authflow" target="_blank">Github</a> repo;
-					</li>
-				</ul>
-			</div>
-		</section>
+		<%- include('./partials/info') %>
 
 		<section class="container__steps">
 			<div class="container__steps--display">
@@ -114,7 +81,7 @@
 			<div class="container__token--display">
 				<% 	for (let i = 0; i < data.length; i++) { %>
 					<% const value = data[i].split('='); %>
-					<label><%= value[0] %></label>
+					<label><%= value[0] %> <span class="copy"><box-icon color="#fff" type="solid" size="xs" name="copy"></box-icon></span></label>
 					<input type="text" value="<%= value[1]%>"/>
 				<% }; %>
 			</div>

@@ -6,6 +6,8 @@ const router = express.Router();
 const version = '2.0';
 const protocol = 'https://';
 let realm = '';
+let clientId = '';
+let clientSecret = '';
 
 router.get('/v1/oauth2', (req, res) => {
 	try {
@@ -19,6 +21,7 @@ router.get('/v1/oauth2', (req, res) => {
 		console.log('PARAMS >>> ', params);
 
 		realm = req.query.realm;
+		clientId = req.query.clientid;
 
 		const redirectURL = protocol + realm.toLowerCase() + process.env.AUTH_URL;
 		console.log('\nREDIRECT URL >>> ', redirectURL);
@@ -41,10 +44,12 @@ router.post('/v1/oauth2', async (req, res) => {
 		};
 		console.log('\nPOST - BODY STEP 2 >>> ', body);
 
+		clientSecret = req.body.clientsecret;
+
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/x-www-form-urlencoded',
-			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
+			Authorization: 'Basic ' + basicAuth(clientId, clientSecret)
 		};
 
 		console.log(headers);
@@ -88,7 +93,7 @@ router.post('/v1/oauth2/refresh', async (req, res) => {
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/x-www-form-urlencoded',
-			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
+			Authorization: 'Basic ' + basicAuth(clientId, clientSecret)
 		};
 
 		const data = await axios
@@ -128,7 +133,7 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 		const headers = {
 			Accept: '*/*',
 			'Content-Type': 'application/x-www-form-urlencoded',
-			Authorization: 'Basic ' + basicAuth(process.env.CLIENTID, process.env.CLIENTSECRET)
+			Authorization: 'Basic ' + basicAuth(clientId, clientSecret)
 		};
 
 		console.log(protocol + realm.toLowerCase() + process.env.REVOKE_URL);
@@ -147,7 +152,7 @@ router.post('/v1/oauth2/revoke', async (req, res) => {
 				console.log('ERROR >>> ', error);
 			});
 
-		console.log('DATA >>> ', data);
+		console.log('DATA REVOKE >>> ', data);
 
 		res.render('authTwo', {
 			home: 'Home',

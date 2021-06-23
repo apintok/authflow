@@ -12,7 +12,7 @@ let tokenSecret = '';
 
 router.post('/v1/oauth1/obtain', async (req, res) => {
 	try {
-		console.log('OBTAIN BODY >>> ', req.body);
+		console.log('\nSTEP OBTAIN >>> ', req.body);
 		realm = req.body.realm;
 		consumerKey = req.body.oauth_consumer_key;
 		consumerSecret = req.body.consumersecret;
@@ -26,10 +26,9 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 
 		const url = protocol + realm.toLowerCase() + process.env.OBTAIN_URL;
 		const baseString = buildBaseString(req.method, url, baseStringData);
-		console.log('\nBase String >>> ', baseString);
+		console.log('\nBASE STR >>> ', baseString);
 
 		const signature = calcSignature(consumerSecret, '', baseString.baseString);
-		console.log(signature);
 
 		const headers = {
 			Accept: '*/*',
@@ -43,7 +42,7 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 			)}", oauth_signature="${signature}"`
 		};
 
-		console.log('\nHEADER >>> ', headers);
+		console.log('\nHEADERS >>> ', headers);
 
 		const data = await axios
 			.post(url, '', { headers })
@@ -59,11 +58,8 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 		console.log('\nDATA >>> ', data);
 
 		const values = data.split('&');
-		console.log(values);
 		const authToken = values[0].split('=');
-		console.log(authToken[1]);
 		const authTokenSecret = values[1].split('=');
-		console.log(authTokenSecret[1]);
 		tokenSecret = authTokenSecret[1];
 
 		res.render('authOne', {
@@ -74,14 +70,14 @@ router.post('/v1/oauth1/obtain', async (req, res) => {
 			data: values
 		});
 	} catch (error) {
-		console.log('ERROR STEP 1 >>> ', JSON.stringify(error));
+		console.log('ERROR STEP OBTAIN >>> ', JSON.stringify(error));
 		res.status(500).end();
 	}
 });
 
 router.get('/v1/oauth1/authorize', async (req, res) => {
 	try {
-		console.log('QUERY >>> ', req.query);
+		console.log('\nSTEP AUTHORIZE >>> ', req.query);
 
 		const redirectURL = protocol + realm.toLowerCase() + process.env.AUTH_TOKEN_URL;
 		console.log('\nREDIRECT URL >>> ', redirectURL);
@@ -93,21 +89,20 @@ router.get('/v1/oauth1/authorize', async (req, res) => {
 
 		res.redirect(redirectURL + urlParams);
 	} catch (error) {
-		console.log('ERROR STEP 2 >>> ', JSON.stringify(error));
+		console.log('ERROR STEP AUTHORIZE >>> ', JSON.stringify(error));
 		res.status(500).end();
 	}
 });
 
 router.post('/v1/oauth1/exchange', async (req, res) => {
 	try {
-		console.log('EXCHANGE BODY >>> ', req.body);
+		console.log('\nSTEP EXCHANGE >>> ', req.body);
 		req.body.oauth_consumer_key = consumerKey;
 
 		const url = protocol + realm.toLowerCase() + process.env.EXCHGE_URL;
 		const baseString = buildBaseString(req.method, url, req.body);
 		console.log('\nBase String >>> ', baseString);
 		const signature = calcSignature(consumerSecret, tokenSecret, baseString.baseString);
-		console.log('\nSIGNATURE >>> ', signature);
 
 		const headers = {
 			Accept: '*/*',
@@ -115,7 +110,7 @@ router.post('/v1/oauth1/exchange', async (req, res) => {
 			Authorization: `OAuth realm="${realm}", oauth_token="${req.body.oauth_token}", oauth_consumer_key="${consumerKey}", oauth_nonce="${baseString.nonce}", oauth_timestamp="${baseString.timestamp}", oauth_signature_method="${req.body.oauth_signature_method}", oauth_version="${req.body.oauth_version}", oauth_verifier="${req.body.oauth_verifier}", oauth_signature="${signature}"`
 		};
 
-		console.log('\nHEADER >>> ', headers);
+		console.log('\nHEADERS >>> ', headers);
 
 		const data = await axios
 			.post(url, '', { headers })
@@ -145,7 +140,7 @@ router.post('/v1/oauth1/exchange', async (req, res) => {
 			data: values
 		});
 	} catch (error) {
-		console.log('ERROR STEP 3 >>> ', JSON.stringify(error));
+		console.log('ERROR STEP EXCHANGE >>> ', JSON.stringify(error));
 		res.status(500).end();
 	}
 });

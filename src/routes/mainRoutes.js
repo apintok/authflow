@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/v1/authflow/one', (req, res) => {
-	console.log('QUERY MAIN 1 >>> ', req.query);
+	console.log('MAIN 1 >>> ', req.query);
 	res.render('authOne', {
 		home: 'Home',
 		version: '1.0',
@@ -19,7 +19,7 @@ router.get('/v1/authflow/one', (req, res) => {
 });
 
 router.get('/v1/authflow/two', (req, res) => {
-	console.log('QUERY MAIN 2 >>> ', req.query);
+	console.log('MAIN 2 >>> ', req.query);
 	res.render('authTwo', {
 		home: 'Home',
 		version: '2.0',

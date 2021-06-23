@@ -208,6 +208,7 @@ header a {
 	color: var(--color-white);
 	padding: 0.5rem;
 	width: 100%;
+	position: relative;
 }
 
 .container__token--display input {
@@ -253,4 +254,9 @@ pre {
 
 .note {
 	font-size: 9px;
+}
+
+.copy {
+	position: absolute;
+	right: 0.2rem;
 }
