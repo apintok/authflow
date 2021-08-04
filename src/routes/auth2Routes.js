@@ -59,7 +59,6 @@ router.post('/v1/oauth2', async (req, res) => {
 				headers
 			})
 			.then((res) => {
-				console.log('RES >>> ', res);
 				console.log('RES CODE >>> ', res.status);
 
 				return res.data;

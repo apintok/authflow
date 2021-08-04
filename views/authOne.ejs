@@ -21,7 +21,7 @@
 						<div class="input__group--scope">
 							<span>Signature Method</span><br />
 							<input type="checkbox" id="hmac1" name="oauth_signature_method" value="HMAC-SHA1" disabled />
-							<label for="oauth_signature_method"> HMAC-SHA1</label><br />
+							<label for="oauth_signature_method"> HMAC-SHA1 (No Longer Supported)</label><br />
 							<input type="checkbox" id="hmac256" name="oauth_signature_method" value="HMAC-SHA256" checked />
 							<label for="oauth_signature_method"> HMAC-SHA256</label><br />
 							<span>oAuth Version</span><br />
@@ -81,7 +81,7 @@
 			<div class="container__token--display">
 				<% 	for (let i = 0; i < data.length; i++) { %>
 					<% const value = data[i].split('='); %>
-					<label><%= value[0] %> <span class="copy"><box-icon color="#fff" type="solid" size="xs" name="copy"></box-icon></span></label>
+					<label><%= value[0] %></label>
 					<input type="text" value="<%= value[1]%>"/>
 				<% }; %>
 			</div>

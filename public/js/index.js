@@ -3,6 +3,9 @@ const infoSection = document.querySelector('.container__info');
 const authorize = document.getElementById('authorize');
 const formStepOne = document.getElementsByTagName('form')[0];
 const redirectUriPost = document.getElementById('redirect_uri_post');
+const tokenInputs = document.getElementsByClassName('container__token--display');
+
+console.log(tokenInputs);
 let clicked = false;
 
 formStepOne.addEventListener('submit', function (e) {
